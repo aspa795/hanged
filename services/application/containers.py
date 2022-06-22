@@ -1,5 +1,5 @@
 # Third-Party Libraries
-from lagom import Container
+from lagom import Container, Singleton
 
 # RG Libraries
 from services.adapters.user.i_user_adapter import IUserAdapter
@@ -12,6 +12,6 @@ from services.application.ports.outgoing.i_user_output_port import IUserOutputPo
 from services.application.ports.outgoing.user_output_port import UserOutputPort
 
 container = Container()
-container[IUserAdapter] = container[DynamoDBUserAdapter]
-container[IUserOutputPort] = container[UserOutputPort]
-container[IUserInputPort] = container[ApiGatewayUserInputPort]
+container[IUserAdapter] = Singleton(DynamoDBUserAdapter)
+container[IUserOutputPort] = Singleton(UserOutputPort)
+container[IUserInputPort] = Singleton(ApiGatewayUserInputPort)
